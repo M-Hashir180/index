@@ -1,0 +1,94 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: 'Playfair Display', serif;
+}
+
+body{
+    background:#8b5a2b;
+    color:#fff;
+    text-align:center;
+}
+
+section{
+    padding:60px 20px;
+}
+
+.hero{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
+
+.hero h1{
+    font-size:48px;
+    letter-spacing:2px;
+}
+
+.subtitle{
+    margin-top:15px;
+    font-size:18px;
+}
+
+.date{
+    margin-top:10px;
+    font-size:16px;
+}
+
+h2{
+    font-size:32px;
+    margin-bottom:20px;
+}
+
+.countdown .time{
+    display:flex;
+    justify-content:center;
+    gap:20px;
+}
+
+.countdown span{
+    display:block;
+    font-size:28px;
+}
+
+.story p,
+.details p{
+    max-width:500px;
+    margin:10px auto;
+    font-size:16px;
+}
+
+.btn{
+    display:inline-block;
+    margin-top:20px;
+    padding:12px 30px;
+    border:1px solid #fff;
+    color:#fff;
+    text-decoration:none;
+    border-radius:30px;
+}
+
+.schedule p{
+    margin:10px 0;
+}
+
+.gallery .images{
+    display:grid;
+    grid-template-columns:repeat(2,120px);
+    gap:15px;
+    justify-content:center;
+}
+
+.gallery .img{
+    width:120px;
+    height:160px;
+    background:#d2b48c;
+    border-radius:10px;
+}
+
+footer{
+    padding:40px;
+    font-size:14px;
+}

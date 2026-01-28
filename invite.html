@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eleanor & James | Wedding 2026</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-green: #4A5D46; /* Olive Green */
+            --paper-bg: #F9F7F2;      /* Cream/Paper */
+            --gold: #C5A065;          /* Muted Gold */
+            --text-dark: #2C2C2C;
+            --text-light: #FFFFFF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #e0e0e0;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            color: var(--text-dark);
+            overflow: hidden; /* Prevent scrolling until opened */
+        }
+
+        /* --- THE ENVELOPE OVERLAY --- */
+        #envelope-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--primary-green);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+            background-image: url("https://www.transparenttextures.com/patterns/cubes.png"); /* Subtle texture */
+        }
+
+        /* The Envelope Flap Effect */
+        .envelope-flap {
+            position: absolute;
+            top: 20%;
+            width: 300px;
+            height: 300px;
+            background: rgba(255,255,255,0.05);
+            transform: rotate(45deg);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            border-right: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .teaser-text {
+            color: var(--text-light);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            font-style: italic;
+            z-index: 102;
+        }
+
+        /* Wax Seal Button */
+        .wax-seal {
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(135deg, #D4AF37, #C5A065);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            cursor: pointer;
+            z-index: 102;
+            border: 4px solid #b38b4d;
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+
+        .wax-seal:hover {
+            transform: scale(1.05);
+        }
+
+        .wax-seal span {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            color: #584115;
+            font-weight: bold;
+        }
+
+        /* Animation class to slide envelope up */
+        body.opened #envelope-overlay {
+            transform: translateY(-100%);
+        }
+        
+        body.opened {
+            overflow-y: auto; /* Enable scrolling */
+        }
+
+        /* --- MAIN MOBILE CONTAINER --- */
+        .mobile-container {
+            width: 100%;
+            max-width: 450px; /* Limits width to look like a phone */
+            background-color: var(--paper-bg);
+            box-shadow: 0 0 30px rgba(0,0,0,0.1);
+            min-height: 100vh;
+            position: relative;
+            padding-bottom: 60px;
+            opacity: 0;
+            transition: opacity 1s ease 0.5s; /* Fade in after envelope opens */
+        }
+
+        body.opened .mobile-container {
+            opacity: 1;
+        }
+
+        /* --- HEADER SECTION --- */
+        header {
+            text-align: center;
+            padding: 60px 20px 40px;
+        }
+
+        .sub-head {
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 0.8rem;
+            color: var(--primary-green);
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3.5rem;
+            font-weight: 400;
+            line-height: 0.9;
+            color: var(--text-dark);
+            margin-bottom: 15px;
+        }
+
+        .date-display {
+            font-size: 1.1rem;
+            border-top: 1px solid var(--gold);
+            border-bottom: 1px solid var(--gold);
+            display: inline-block;
+            padding: 8px 20px;
+            margin-top: 10px;
+            font-style: italic;
+        }
+
+        /* --- HERO IMAGE --- */
+        .hero-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 200px 200px 0 0; /* Arch shape */
+            margin-bottom: 40px;
+            padding: 0 20px;
+        }
+
+        /* --- CONTENT SECTIONS --- */
+        .section {
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            color: var(--primary-green);
+            margin-bottom: 20px;
+        }
+
+        .location-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+            border: 1px solid #eee;
+        }
+
+        .location-time {
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin-bottom: 5px;
+            color: var(--gold);
+        }
+
+        .address {
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background-color: var(--primary-green);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #384635;
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--primary-green);
+            color: var(--primary-green);
+        }
+
+        /* --- TIMELINE --- */
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            text-align: left;
+        }
+
+        .time-col {
+            width: 80px;
+            font-weight: bold;
+            color: var(--gold);
+            text-align: right;
+            padding-right: 15px;
+            border-right: 2px solid #ddd;
+        }
+
+        .event-col {
+            padding-left: 15px;
+        }
+        
+        .event-title {
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+        }
+
+        /* --- RSVP SECTION --- */
+        .rsvp-section {
+            background-color: var(--primary-green);
+            color: white;
+            border-radius: 20px 20px 0 0;
+            padding-bottom: 80px;
+        }
+        
+        .rsvp-section h2 {
+            color: white;
+        }
+        
+        .rsvp-section p {
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .rsvp-btn {
+            display: block;
+            width: 100%;
+            background: white;
+            color: var(--primary-green);
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        /* --- SCROLL HINT --- */
+        .scroll-hint {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.8rem;
+            color: #999;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateX(-50%) translateY(0);}
+            40% {transform: translateX(-50%) translateY(-10px);}
+            60% {transform: translateX(-50%) translateY(-5px);}
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="envelope-overlay">
+        <div class="envelope-flap"></div>
+        <div class="teaser-text">
+            For you<br>Invitation Enclosed
+        </div>
+        <div class="wax-seal" onclick="openInvitation()">
+            <span>E&J</span>
+        </div>
+    </div>
+
+    <div class="mobile-container">
+        
+        <header>
+            <div class="sub-head">We Are Getting Married</div>
+            <h1>Eleanor <br>&<br> James</h1>
+            <div class="date-display">Saturday, June 20, 2026</div>
+        </header>
+
+        <img src="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=2070&auto=format&fit=crop" alt="Couple" class="hero-image">
+        
+        <div class="scroll-hint">Scroll Down</div>
+
+        <section class="section">
+            <h2>The Ceremony</h2>
+            <div class="location-card">
+                <div class="location-time">3:00 PM</div>
+                <h3>St. Julian's Historical Chapel</h3>
+                <p class="address">142 Cathedral Lane, Kensington<br>London, UK</p>
+                <a href="#" class="btn btn-outline">View Map</a>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>The Reception</h2>
+            <p style="margin-bottom: 30px;">Followed immediately by cocktails and dinner at The Rosewood Estate.</p>
+            
+            <div class="timeline-item">
+                <div class="time-col">4:30 PM</div>
+                <div class="event-col">
+                    <div class="event-title">Welcome Cocktails</div>
+                    <small>Garden Terrace</small>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="time-col">6:00 PM</div>
+                <div class="event-col">
+                    <div class="event-title">Dinner Served</div>
+                    <small>The Grand Ballroom</small>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="time-col">7:30 PM</div>
+                <div class="event-col">
+                    <div class="event-title">Cake Cutting</div>
+                    <small>& Champagne Toast</small>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="time-col">8:00 PM</div>
+                <div class="event-col">
+                    <div class="event-title">Let's Dance!</div>
+                    <small>Live Band until Midnight</small>
+                </div>
+            </div>
+        </section>
+
+        <section class="section rsvp-section">
+            <h2>Will You Join Us?</h2>
+            <p>Please kindly respond by May 1st, 2026</p>
+            
+            <a href="#" class="rsvp-btn">Yes, I'll be there!</a>
+            <a href="#" class="rsvp-btn" style="background: rgba(255,255,255,0.2); color: white;">Regretfully Decline</a>
+        </section>
+
+    </div>
+
+    <script>
+        function openInvitation() {
+            // This adds the class that triggers the CSS animation
+            document.body.classList.add('opened');
+            
+            // Optional: Play a sound effect if you wanted
+            // new Audio('pop.mp3').play();
+        }
+    </script>
+</body>
+</html>
